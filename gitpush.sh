@@ -1,4 +1,6 @@
 #!/bin/bash
+git config --global user.email "parkhk1991@gmail.com"
+git config --global user.name "jaewabi"
 
 COMMIT_MSG=${1:-"auto commit"}
 
