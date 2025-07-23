@@ -8,4 +8,4 @@ COMMIT_MSG=${1:-"auto commit"}
 git status
 git add -A
 git commit -m "$COMMIT_MSG"
-git push
+git push 
