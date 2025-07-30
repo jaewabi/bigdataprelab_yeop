@@ -12,7 +12,8 @@ import logging
 
 # Kafka 설정
 BROKER = "s1:9092,s2:9092,s3:9092"
-TOPIC = "fms-sensor-data"
+#TOPIC = "fms-sensor-data"
+TOPIC = "topic9"
 
 # FMS API 설정  
 API_BASE_URL = "http://finfra.iptime.org:9872"
