@@ -18,6 +18,7 @@ from pyspark.sql.functions import col
 
 # Kafka 설정
 BROKER = "s1:9092,s2:9092,s3:9092"
+#TOPIC = "fms-sensor-data"
 TOPIC = "topic9"
 GROUP_ID = "fms-data-processor"
 
@@ -121,6 +122,18 @@ class FMSDataConsumer:
             raw_value = msg.value().decode('utf-8')
             logger.info(f"[RAW INPUT] {raw_value}")
             data = json.loads(raw_value)
+
+            # 숫자 필드 모두 float로 타입 통일
+            for key in ['sensor1', 'sensor2', 'sensor3', 'motor1', 'motor2', 'motor3']:
+                if key in data:
+                    data[key] = float(data[key])
+
+            # DeviceId는 int로 통일
+            if 'DeviceId' in data:
+                data['DeviceId'] = int(data['DeviceId'])
+
+            # isFail은 bool 유지 (json.loads에서 자동 처리됨)
+
             self.buffer.append(data)
         except json.JSONDecodeError as e:
             logger.error(f"JSON 파싱 오류: {e}")
